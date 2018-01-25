@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/sansspoon/koacola/issues"
   },
-  "homepage": "https://github.com/sansspoon/koacola#readme"
+  "homepage": "https://github.com/sansspoon/koacola#readme",
+  "dependencies": {
+    "koa": "^2.4.1"
+  }
 }
