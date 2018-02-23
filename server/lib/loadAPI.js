@@ -25,7 +25,7 @@ module.exports = function(app, root){
 		let apiRoutes = getDirectories(root);
 
 		if (apiRoutes.filter(isFile).length > 0) {
-			console.warn('API only reads directories, ignoring files.');
+			console.warn('Warn: API only reads directories, ignoring files.');
 		}
 
 		apiRoutes = apiRoutes.filter(isDirectory);
