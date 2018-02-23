@@ -12,6 +12,7 @@
 // libraries
 const Router = require('koa-router');
 const koaBody = require('koa-body');
+const controller = require('./controller');
 
 // utilities
 const routePath = /[^/]*$/.exec(__dirname)[0];
