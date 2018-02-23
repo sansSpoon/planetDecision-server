@@ -1,3 +1,5 @@
+'use strict';
+
 // to-do
 // describe the app
 // built using node 9.5.0

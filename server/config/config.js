@@ -1,4 +1,5 @@
 'use strict';
+
 // provide a configurable environment
 
 const config = {
