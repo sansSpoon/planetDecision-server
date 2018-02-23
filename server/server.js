@@ -1,13 +1,15 @@
 'use strict';
 
+// TODO: Add debugging logger ? Morgan
+
+// libraries
 const Koa = require('koa');
+const loadApi = require('./lib/loadApi');
+
+// loaders
 const app = new Koa();
-
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
+loadApi(app, __dirname + '/api');
 
 
-
-// export the app for testing
+// export the app
 module.exports = app;

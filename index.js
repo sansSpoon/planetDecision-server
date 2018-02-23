@@ -1,10 +1,11 @@
 'use strict';
 
-// to-do
-// describe the app
-// built using node 9.5.0
+// TODO: describe the app
+// TODO: built using node 9.5.0
+// TODO: version info, etc
 
 const config = require('./server/config/config');
 const app = require('./server/server');
 
 app.listen(config.port);
+console.log(`Server running on port ${config.port}`)
