@@ -4,7 +4,7 @@
 // TODO: built using node 9.5.0
 // TODO: version info, etc
 
-const config = require('./server/config/config');
+const env = require('./server/config/env');
 const app = require('./server/server');
 
 app.listen(config.port);
