@@ -11,6 +11,20 @@
   "extends": "airbnb-base",
   "rules": {
     "indent": ["error", "tab", { "MemberExpression": 1 }],
-    "no-tabs": "off"
+    "no-tabs": "off",
+    
+    //ES6
+    "arrow-parens": ["error", "always"],
+    
+    //Style
+    "padded-blocks": "off",
+    "max-len": "off",
+    
+    //Best Practice
+    "consistent-return": "off",
+    
+    //imports
+    "global-require": "off",
+    "import/no-dynamic-require": "off"
   }
 }

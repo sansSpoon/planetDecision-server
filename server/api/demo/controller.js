@@ -16,12 +16,12 @@
 ** @example curl -i -XPOST '<host>:<port>/users' -d '{"firstName":"Jacob", "lastName":"Jones"}' -H 'Content-Type: application/json'
 */
 //
-exports.createOne = async function createOne (ctx, next) {
-	
+exports.createOne = async function createOne(ctx, next) {
+
 	ctx.body = await addToDB(ctx.params.id, ctx.request.body);
 	ctx.status = 201;
 	await next();
-}
+};
 
 
 // ! Read one record from ID
@@ -32,11 +32,11 @@ exports.createOne = async function createOne (ctx, next) {
 ** @example curl -i "<host>:<port>/users/1"
 */
 //
-exports.readOne = async function readOne (ctx, next) {
+exports.readOne = async function readOne(ctx, next) {
 
 	ctx.body = await getIdFromDb(ctx.params.id);
 	await next();
-}
+};
 
 
 // ! Read All records
@@ -46,11 +46,11 @@ exports.readOne = async function readOne (ctx, next) {
 ** @example curl -i "<host>:<port>/users"
 */
 //
-exports.readAll = async function readAll (ctx, next) {
+exports.readAll = async function readAll(ctx, next) {
 
 	ctx.body = await getAllFromDb();
 	await next();
-}
+};
 
 
 // ! Update one records
@@ -63,11 +63,11 @@ exports.readAll = async function readAll (ctx, next) {
 ** @example curl -i -XPUT "<host>:<port>/users/<id>" -d '{"firstName":"Zoe", "lastName":"Zulu"}' -H 'Content-Type: application/json'
 */
 //
-exports.updateOne = async function updateOne (ctx, next) {
+exports.updateOne = async function updateOne(ctx, next) {
 
 	ctx.body = await updateIdToDb(ctx.params.id, ctx.request.body);
 	await next();
-}
+};
 
 
 // ! Delete one records
@@ -78,9 +78,9 @@ exports.updateOne = async function updateOne (ctx, next) {
 ** @example curl -i -XDELETE "<host>:<port>/users/<id>"
 */
 //
-exports.deleteOne = async function deleteOne (ctx, next) {
-	
+exports.deleteOne = async function deleteOne(ctx, next) {
+
 	await removeIdInDb(ctx.params.id);
 	ctx.status = 204;
 	await next();
-}
+};
