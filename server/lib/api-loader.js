@@ -15,21 +15,21 @@ const getDirectories = (source) => readdirSync(source).map((name) => resolve(sou
 
 // ! API Loader
 /*
-** Checks for correctly configured directories (routes) in the API root
+** Checks for correctly configured directories (routes) in the API root.
 **
 ** @param app - the Koa application
 ** @param root - the API root directory
 ** @return {app}
 */
 //
-module.exports = function loadApi(app, root) {
+exports.init = function apiInit(app, root) {
 
 	try {
 		let apiRoutes = getDirectories(root);
 
 		if (apiRoutes.filter(isFile).length > 0) {
 
-			console.warn('Warn: API only reads directories, ignoring files.');
+			console.warn('Warn: API only loads directories, ignoring files.');
 		}
 
 		apiRoutes = apiRoutes.filter(isDirectory);

@@ -4,12 +4,12 @@
 
 // libraries
 const Koa = require('koa');
-const loadApi = require('./lib/loadApi');
+const api = require('./lib/api-loader');
 const { resolve } = require('path');
 
 // loaders
 const app = new Koa();
-loadApi(app, resolve(__dirname, 'api'));
+api.init(app, resolve(__dirname, 'api'));
 
 
 // export the app
