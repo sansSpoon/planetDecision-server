@@ -4,13 +4,28 @@
 
 // libraries
 const Koa = require('koa');
-const api = require('./lib/api-loader');
 const { resolve } = require('path');
 
 // loaders
-const app = new Koa();
-api.init(app, resolve(__dirname, 'api'));
+const env = require('./config/env');
+const api = require('./lib/api-loader');
+const db = require('./lib/db-loader');
 
+
+const app = new Koa();
+
+app.on('ready', function() {
+	
+	console.log("Loading API routes...");
+	api.init(app, resolve(__dirname, 'api'));
+	
+	app.listen(env.port, function(){
+		
+		console.log(`Server running on port ${env.port}`);
+	});
+});
+
+db.init(app, env.db);
 
 // export the app
 module.exports = app;

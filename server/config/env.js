@@ -4,7 +4,6 @@
 const { resolve } = require('path');
 
 // provide a configurable environment
-
 const config = {
 	dev: 'env-dev',
 	test: 'env-test',
@@ -16,12 +15,10 @@ const config = {
 // This is already done by Koa, enforcing it here
 process.env.NODE_ENV = process.env.NODE_ENV || config.dev;
 
-// Add additional Environment Variables loaded from
-// modules based on config name, if the module is missing
-// or not an object, set it to an empty object
+// Add additional Environment Variables loaded from modules based on config name
 let additionalConfig;
 try {
-	additionalConfig = require(resolve('./', process.env.NODE_ENV));
+	additionalConfig = require(resolve(__dirname, process.env.NODE_ENV));
 
 	if (typeof additionalConfig !== 'object') {
 		throw new Error('Additional configuration was in an unknown format.');
