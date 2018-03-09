@@ -14,13 +14,13 @@ const db = require('./lib/db-loader');
 
 const app = new Koa();
 
-app.on('ready', function() {
-	
-	console.log("Loading API routes...");
+app.on('ready', () => {
+
+	console.log('Loading API routes...');
 	api.init(app, resolve(__dirname, 'api'));
-	
-	app.listen(env.port, function(){
-		
+
+	app.listen(env.port, () => {
+
 		console.log(`Server running on port ${env.port}`);
 	});
 });
