@@ -95,7 +95,7 @@ exports.updateOne = async function updateOne(ctx, next) {
 
 	Object.assign(ctx[routePath], ctx.request.body);
 
-	ctx.routePath.save((err, result) => {
+	ctx[routePath].save((err, result) => {
 
 		if (err) {
 			next(err);
@@ -139,7 +139,9 @@ exports.updateOnServer = async function updateOnServer(ctx, next) {
 //
 exports.deleteOne = async function deleteOne(ctx, next) {
 
-	await Model.deleteOne(ctx.params.id);
+	await Model.deleteOne({
+		_id: ctx.params.id,
+	});
 	ctx.status = 204;
 
 	await next();
