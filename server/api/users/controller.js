@@ -29,7 +29,6 @@ const routePath = pluralize.singular(/[^/]*$/.exec(__dirname)[0]);
 exports.params = async function getParams(id, ctx, next) {
 
 	ctx[routePath] = await Model.findById(id);
-
 	if (!ctx[routePath]) {
 
 		return (ctx.status = 404);
@@ -48,7 +47,7 @@ exports.params = async function getParams(id, ctx, next) {
 //
 exports.createOne = async function createOne(ctx, next) {
 
-	ctx.body = await Model.create(ctx.request.body).then((result) => result);
+	ctx.body = await Model.create(ctx.request.body);
 	ctx.status = 201;
 	await next();
 };
@@ -93,17 +92,8 @@ exports.readAll = async function readAll(ctx, next) {
 //
 exports.updateOne = async function updateOne(ctx, next) {
 
-	Object.assign(ctx[routePath], ctx.request.body);
-
-	ctx[routePath].save((err, result) => {
-
-		if (err) {
-			next(err);
-		} else {
-			ctx.body = result;
-		}
-	});
-
+	Object.assign(ctx[routePath], ctx.request.body); // Does NOT deep merge
+	ctx.body = await ctx[routePath].save();
 	await next();
 };
 
@@ -118,7 +108,7 @@ exports.updateOne = async function updateOne(ctx, next) {
 //
 exports.updateOnServer = async function updateOnServer(ctx, next) {
 
-	Model.updateOne({
+	await Model.updateOne({
 		_id: ctx.params.id,
 	}, {
 		field1: ctx.request.body.field1,
