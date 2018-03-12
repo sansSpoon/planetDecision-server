@@ -62,7 +62,7 @@ exports.init = function apiInit(app, root) {
 		apiRoutes.forEach((route) => {
 
 			let routePath = /[^/]*$/.exec(route)[0];
-			routePath = require(resolve('../api/', routePath, 'router'));
+			routePath = require(resolve('server/api/', routePath, 'router.js'));
 			app.use(routePath.routes());
 			app.use(routePath.allowedMethods());
 		});
