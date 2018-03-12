@@ -23,10 +23,11 @@ const router = new Router({
 
 // CRUD configuration
 router
-	.get('/', async (ctx, next) => { console.log('readAll'); await next(); })
-	.get('/:id', async (ctx, next) => { console.log('readOne'); await next(); })
-	.post('/', koaBody(), async (ctx, next) => { console.log('createOne'); await next(); })
-	.put('/:id', koaBody(), async (ctx, next) => { console.log('updateOne'); await next(); })
-	.delete('/:id', async (ctx, next) => { console.log('deleteOne'); await next(); });
+	.param('id', controller.params)
+	.get('/', controller.readAll)
+	.get('/:id', controller.readOne)
+	.post('/', koaBody(), controller.createOne)
+	.put('/:id', koaBody(), controller.updateOne)
+	.delete('/:id', controller.deleteOne);
 
 module.exports = router;
