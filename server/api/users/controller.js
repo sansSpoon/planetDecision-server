@@ -30,7 +30,7 @@ exports.params = async function getParams(id, ctx, next) {
 
 	ctx[routePath] = await Model.findById(id);
 
-	if (!ctx.routePath) {
+	if (!ctx[routePath]) {
 
 		return (ctx.status = 404);
 	}
@@ -64,7 +64,7 @@ exports.createOne = async function createOne(ctx, next) {
 //
 exports.readOne = async function readOne(ctx, next) {
 
-	ctx.body = ctx.routePath;
+	ctx.body = ctx[routePath];
 	await next();
 };
 
@@ -93,7 +93,7 @@ exports.readAll = async function readAll(ctx, next) {
 //
 exports.updateOne = async function updateOne(ctx, next) {
 
-	Object.assign(ctx.routePath, ctx.request.body);
+	Object.assign(ctx[routePath], ctx.request.body);
 
 	ctx.routePath.save((err, result) => {
 
