@@ -22,6 +22,7 @@
     
     //Best Practice
     "consistent-return": "off",
+    "no-return-assign": ["error", "except-parens"],
     
     //imports
     "global-require": "off",
