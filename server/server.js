@@ -14,6 +14,18 @@ const db = require('./lib/db-loader');
 
 const app = new Koa();
 
+app.use(async (ctx, next) => {
+	try {
+		await next();
+	} catch (err) {
+		err.status = err.statusCode || err.status || 500;
+		ctx.body = {
+			message: err.message,
+		};
+		ctx.app.emit('error', err, ctx);
+	}
+});
+
 app.on('ready', () => {
 
 	console.log('Loading API routes...');

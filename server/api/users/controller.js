@@ -1,11 +1,7 @@
 'use strict';
 
 /*
-** TODO: Add try catch to everything?
-** TODO: Need to determine how to seperate
-**   controller specific, or model specific functions
 ** TODO: Update one record @ server - needs to have better promise handling
-**
 */
 
 
