@@ -3,11 +3,14 @@
 // libraries
 const { resolve } = require('path');
 
+// loaders
+const logger = require('../lib/console-wrapper.js');
+
 // provide a configurable environment
 const config = {
-	dev: 'env-dev',
-	test: 'env-test',
-	prod: 'env-prod',
+	dev: 'development',
+	test: 'testing',
+	prod: 'production',
 	port: process.env.PORT || 3000,
 };
 
@@ -24,8 +27,8 @@ try {
 		throw new Error('Additional configuration was in an unknown format.');
 	}
 
-} catch (e) {
-	console.log(e.message);
+} catch (err) {
+	logger.error(err.message);
 	additionalConfig = {};
 }
 

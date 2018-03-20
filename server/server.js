@@ -8,6 +8,7 @@ const cors = require('koa-cors');
 
 // loaders
 const env = require('./config/env');
+const logger = require('./lib/console-wrapper.js');
 const api = require('./lib/api-loader');
 const db = require('./lib/db-loader');
 
@@ -31,12 +32,12 @@ app.on('ready', () => {
 	app.use(cors());
 	app.use(requestLogger());
 
-	console.log('Loading API routes...');
+	logger.info('Loading API routes...');
 	api.init(app, resolve(__dirname, 'api'));
 
 	app.listen(env.port, () => {
 
-		console.log(`Server running on port ${env.port}`);
+		logger.info(`Server running on port ${env.port} (${process.env.NODE_ENV})`);
 	});
 });
 

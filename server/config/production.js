@@ -8,4 +8,5 @@ module.exports = {
 		user: '',
 		pass:	'',
 	},
+	logging: false,
 };

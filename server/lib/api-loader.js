@@ -8,6 +8,9 @@
 const { lstatSync, readdirSync, existsSync } = require('fs');
 const { resolve } = require('path');
 
+// loaders
+const logger = require('./console-wrapper.js');
+
 // utilities
 const isDirectory = (source) => lstatSync(source).isDirectory();
 const isFile = (source) => lstatSync(source).isFile();
@@ -29,7 +32,7 @@ exports.init = function apiInit(app, root) {
 
 		if (apiRoutes.filter(isFile).length > 0) {
 
-			console.warn('Warn: API only loads directories, ignoring files.');
+			logger.warn('Warn: API only loads directories, ignoring files.');
 		}
 
 		apiRoutes = apiRoutes.filter(isDirectory);
@@ -42,15 +45,15 @@ exports.init = function apiInit(app, root) {
 		apiRoutes.forEach((route) => {
 
 			if (!existsSync(resolve(route, 'router.js'))) {
-				console.error(`${route} missing router`);
+				logger.error(`${route} missing router`);
 				configs += 1;
 			}
 			if (!existsSync(resolve(route, 'controller.js'))) {
-				console.error(`${route} missing controller`);
+				logger.error(`${route} missing controller`);
 				configs += 1;
 			}
 			if (!existsSync(resolve(route, 'model.js'))) {
-				console.error(`${route} missing model`);
+				logger.error(`${route} missing model`);
 				configs += 1;
 			}
 		});
@@ -70,7 +73,7 @@ exports.init = function apiInit(app, root) {
 		return app;
 
 	} catch (e) {
-		console.error(`${e.name}: ${e.message}`);
+		logger.error(`${e.name}: ${e.message}`);
 		process.exit();
 	}
 };

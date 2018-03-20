@@ -4,6 +4,9 @@
 const mongoose = require('mongoose');
 const { URL } = require('url');
 
+// loaders
+const logger = require('./console-wrapper.js');
+
 // ! DB Loader
 /*
 ** Uses a relevant config file to create a connection to mongoose.
@@ -27,21 +30,21 @@ exports.init = async function dbInit(app, uri) {
 	dbURL.password = uri.pass;
 
 	mongoose.connection.on('connected', () => {
-		console.log('Connected to DB!');
+		logger.info('Connected to DB!');
 		app.emit('ready');
 	});
 
 	mongoose.connection.on('error', (err) => {
-		console.error('A DB error occured.', err.message);
+		logger.error('A DB error occured.', err.message);
 	});
 
 	mongoose.connection.on('disconnected', () => {
-		console.log('DB disconnected!');
+		logger.info('DB disconnected!');
 	});
 
 	const gracefulExit = function gracefulExit() {
 		mongoose.connection.close(() => {
-			console.log('DB connection closed at the request of App.');
+			logger.info('DB connection closed at the request of App.');
 			process.exit(0);
 		});
 	};
@@ -50,10 +53,10 @@ exports.init = async function dbInit(app, uri) {
 	process.on('SIGINT', gracefulExit).on('SIGTERM', gracefulExit);
 
 	try {
-		console.log('Attempting DB connection...');
+		logger.info('Attempting DB connection...');
 		return await mongoose.connect(dbURL.toString());
 	} catch (err) {
-		console.log('Sever initialization failed: ', err.message);
+		logger.info('Sever initialization failed: ', err.message);
 		process.exit(1);
 	}
 };
