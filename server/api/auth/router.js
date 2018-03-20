@@ -23,11 +23,7 @@ const router = new Router({
 
 // CRUD configuration
 router
-	.param('id', controller.params)
-	.get('/', controller.readAll)
-	.get('/:id', controller.readOne)
-	.post('/', koaBody(), controller.createOne)
-	.put('/:id', koaBody(), controller.updateOne)
-	.delete('/:id', controller.deleteOne);
+	.post('/signup', koaBody(), controller.newUser)
+	.post('/signin', koaBody(), constroller.getUser);
 
 module.exports = router;
