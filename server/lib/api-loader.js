@@ -38,25 +38,30 @@ exports.init = function apiInit(app, root) {
 		apiRoutes = apiRoutes.filter(isDirectory);
 
 		if (apiRoutes.length === 0) {
-			throw new Error('API root must contain properly configured directories');
+			throw new Error('API root must contain properly configured directories.');
 		}
 
 		let configs = 0;
 		apiRoutes.forEach((route) => {
 
 			if (!existsSync(resolve(route, 'router.js'))) {
-				logger.error(`${route} missing router`);
+				logger.error(`${route} missing router.`);
 				configs += 1;
 			}
 			if (!existsSync(resolve(route, 'controller.js'))) {
-				logger.error(`${route} missing controller`);
+				logger.error(`${route} missing controller.`);
 				configs += 1;
 			}
 			if (!existsSync(resolve(route, 'model.js'))) {
-				logger.error(`${route} missing model`);
+				logger.error(`${route} missing model.`);
 				configs += 1;
 			}
 		});
+
+		if (apiRoutes.findIndex((route) => /[^/]*$/.exec(route)[0] === 'users') === -1) {
+			logger.error('API missing users route.');
+			configs += 1;
+		}
 
 		if (configs > 0) {
 			throw new Error(`${configs} errors with the API configuration.`);
