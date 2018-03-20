@@ -1,10 +1,9 @@
 'use strict';
 
-// TODO: Add debugging logger ? Morgan
-
 // libraries
 const Koa = require('koa');
 const { resolve } = require('path');
+const requestLogger = require('koa-logger');
 
 // loaders
 const env = require('./config/env');
@@ -27,6 +26,8 @@ app.use(async (ctx, next) => {
 });
 
 app.on('ready', () => {
+
+	app.use(requestLogger());
 
 	console.log('Loading API routes...');
 	api.init(app, resolve(__dirname, 'api'));
