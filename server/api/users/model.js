@@ -29,4 +29,27 @@ routeSchema.path('password').validate((password) => {
 	return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.* ).{8,}$/.test(password);
 }, 'Password must be greater than 7 characters, upper and lower case with digits and special characters.');
 
+// pre-save
+routeSchema.pre('save', function(next) {
+	if (!this.isModified('password')) {
+		return next();
+	}
+
+	this.hashPassword(this.password)
+		.then((password) => {
+			this.password = password;
+			next();
+		});
+});
+
+// methods
+routeSchema.methods = {
+	hashPassword(password) {
+		return bcrypt.hash(password, 10);
+	},
+	authenticate(password) {
+		return bcrypt.compare(password, this.password);
+	},
+}
+
 module.exports = mongoose.model(routePath, routeSchema);
