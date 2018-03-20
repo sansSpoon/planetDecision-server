@@ -4,6 +4,7 @@
 const Koa = require('koa');
 const { resolve } = require('path');
 const requestLogger = require('koa-logger');
+const cors = require('koa-cors');
 
 // loaders
 const env = require('./config/env');
@@ -27,6 +28,7 @@ app.use(async (ctx, next) => {
 
 app.on('ready', () => {
 
+	app.use(cors());
 	app.use(requestLogger());
 
 	console.log('Loading API routes...');
