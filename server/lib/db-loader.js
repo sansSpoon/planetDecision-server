@@ -56,7 +56,7 @@ exports.init = async function dbInit(app, uri) {
 		logger.info('Attempting DB connection...');
 		return await mongoose.connect(dbURL.toString());
 	} catch (err) {
-		logger.info('Sever initialization failed: ', err.message);
+		logger.error('Sever initialization failed: ', err.message);
 		process.exit(1);
 	}
 };
