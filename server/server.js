@@ -1,5 +1,11 @@
 'use strict';
 
+/*
+** TODO: ctx.status = err.status; seems hacky,
+**   need to find out if this is the best way
+**   to set the header status on error.
+*/
+
 // libraries
 const Koa = require('koa');
 const { resolve } = require('path');
@@ -20,6 +26,7 @@ app.use(async (ctx, next) => {
 		await next();
 	} catch (err) {
 		err.status = err.statusCode || err.status || 500;
+		ctx.status = err.status;
 		ctx.body = {
 			message: err.message,
 		};
