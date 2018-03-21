@@ -12,7 +12,10 @@
 // libraries
 const Router = require('koa-router');
 const koaBody = require('koa-body');
+
+// loaders
 const controller = require('./controller');
+const { decodeToken } = require('../../lib/jwt-auth');
 
 // utilities
 const routePath = /[^/]*$/.exec(__dirname)[0];
@@ -24,10 +27,10 @@ const router = new Router({
 // CRUD configuration
 router
 	.param('id', controller.params)
-	.get('/', controller.readAll)
-	.get('/:id', controller.readOne)
-	.post('/', koaBody(), controller.createOne)
-	.put('/:id', koaBody(), controller.updateOne)
-	.delete('/:id', controller.deleteOne);
+	.get('/', decodeToken(), controller.readAll)
+	.get('/:id', decodeToken(), controller.readOne)
+	.post('/', decodeToken(), koaBody(), controller.createOne)
+	.put('/:id', decodeToken(), koaBody(), controller.updateOne)
+	.delete('/:id', decodeToken(), controller.deleteOne);
 
 module.exports = router;
