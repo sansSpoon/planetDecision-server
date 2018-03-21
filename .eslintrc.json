@@ -19,6 +19,7 @@
     //Style
     "padded-blocks": "off",
     "max-len": "off",
+    "no-underscore-dangle": "off",
     
     //Best Practice
     "consistent-return": "off",
