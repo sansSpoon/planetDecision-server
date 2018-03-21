@@ -14,6 +14,8 @@ const routeSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
+		unique: true,
+		index: true,
 	},
 	password: {
 		type: String,
