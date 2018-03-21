@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const koaJwt = require('koa-jwt');
 
 // loaders
-const Users = require('../api/users/model');
+const User = require('../api/users/model');
 const config = require('../config/env');
 
 // utilities
@@ -20,6 +20,10 @@ function signToken(id) {
 function decodeToken() {
 	return koaJwt({secret: config.secrets.jwt, key: 'token'});
 }
+
+exports.signToken = signToken;
+exports.decodeToken = decodeToken;
+
 
 // ! Create User
 /*
