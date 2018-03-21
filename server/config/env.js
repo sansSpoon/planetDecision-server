@@ -11,7 +11,6 @@ const config = {
 	dev: 'development',
 	test: 'testing',
 	prod: 'production',
-	port: process.env.PORT || 3000,
 };
 
 // use the default node environment, else set 'development'
