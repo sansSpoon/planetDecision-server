@@ -1,134 +1,73 @@
 'use strict';
 
-/*
-** TODO: Update one record @ server - needs to have better promise handling
-*/
-
-
 // libraries
-const pluralize = require('pluralize');
+const jwt = require('jsonwebtoken');
+const koaJwt = require('koa-jwt');
 
 // loaders
-const Model = require('./model.js');
+const Users = require('../api/users/model');
+const config = require('../config/env');
 
 // utilities
-const routePath = pluralize.singular(/[^/]*$/.exec(__dirname)[0]);
+function signToken(id) {
+	return jwt.sign(
+		{ _id: id },
+		config.secrets.jwt,
+		{ expiresIn: config.jwtExpire },
+	);
+}
 
+function decodeToken() {
+	return koaJwt({secret: config.secrets.jwt, key: 'token'});
+}
 
-// ! Get requested ID as parameter and attach to Koa context
-/*
-** @param id
-** @param ctx
-** @return {next}
-*/
-//
-exports.params = async function getParams(id, ctx, next) {
-
-	ctx[routePath] = await Model.findById(id);
-	if (!ctx[routePath]) {
-
-		return (ctx.status = 404);
-	}
-	return next();
-};
-
-
-// ! Create new record
+// ! Create User
 /*
 ** @param ctx
 ** @return {Promise}
 **
-** @example curl -i -XPOST '<host>:<port>/users' -d '{"firstName":"John", "lastName":"Doe"}' -H 'Content-Type: application/json'
+** @example curl -i -XPOST '<host>:<port>/auth/signup' -d '{"email":"foo@foo.com", "password":"notARealPassword123!@#"}' -H 'Content-Type: application/json'
 */
 //
-exports.createOne = async function createOne(ctx, next) {
+exports.newUser = async function newUser(ctx, next) {
 
-	ctx.body = await Model.create(ctx.request.body);
+	ctx.state.newUser = await User.create(ctx.request.body);
+	ctx.state.token = signToken(ctx.state.newUser._id);
 	ctx.status = 201;
+	ctx.body = ctx.state;
 	await next();
 };
 
 
-// ! Read one record
+// ! Read User
 /*
 ** @param id
 ** @return {Promise}
 **
-** @example curl -i "<host>:<port>/users/1"
+** @example curl -i -XPOST '<host>:<port>/auth/signin' -d '{"email":"foo@foo.com", "password":"notARealPassword123!@#"}' -H 'Content-Type: application/json'
 */
 //
-exports.readOne = async function readOne(ctx, next) {
+exports.getUser = async function getUser(ctx, next) {
 
-	ctx.body = ctx[routePath];
-	await next();
-};
+	if (!ctx.request.body.email || !ctx.request.body.password) {
+		ctx.status = 401;
+		ctx.throw(401, 'Authentication Failed.');
+	}
 
+	authUser = await User.findOne({email: ctx.request.body.email});
+	if (!authUser) {
+		ctx.status = 401;
+		ctx.throw(401, 'Authentication Failed.');
+	}
 
-// ! Read all records
-/*
-** @return {Promise}
-**
-** @example curl -i "<host>:<port>/users"
-*/
-//
-exports.readAll = async function readAll(ctx, next) {
+	if (!await authUser.authenticate(ctx.request.body.password)) {
+		ctx.status = 401;
+		ctx.throw(401, 'Authentication Failed.');
+	}
 
-	ctx.body = await Model.find();
-	await next();
-};
-
-
-// ! Update one record @ client
-/*
-** @param ctx.body
-** @return {Promise}
-**
-** @example curl -i -XPUT "<host>:<port>/users/1" -d '{"firstName":"Zoe", "lastName":"Zulu"}' -H 'Content-Type: application/json'
-*/
-//
-exports.updateOne = async function updateOne(ctx, next) {
-
-	Object.assign(ctx[routePath], ctx.request.body); // Does NOT deep merge
-	ctx.body = await ctx[routePath].save();
-	await next();
-};
-
-
-// ! Update one record @ server (not attached to router, example only)
-/*
-** @param ctx.body
-** @return {Promise}
-**
-** @example curl -i -XPUT "<host>:<port>/users/1" -d '{"firstName":"Zoe", "lastName":"Zulu"}' -H 'Content-Type: application/json'
-*/
-//
-exports.updateOnServer = async function updateOnServer(ctx, next) {
-
-	await Model.updateOne({
-		_id: ctx.params.id,
-	}, {
-		field1: ctx.request.body.field1,
-		$push: { field2: ctx.request.body.field2 },
-	}).exec();
-
-	await next();
-};
-
-
-// ! Delete one record
-/*
-** @param id
-** @return {Promise}
-**
-** @example curl -i -XDELETE "<host>:<port>/users/<id>"
-*/
-//
-exports.deleteOne = async function deleteOne(ctx, next) {
-
-	await Model.deleteOne({
-		_id: ctx.params.id,
-	});
-	ctx.status = 204;
-
+	ctx.state.authUser = authUser;
+	ctx.state.token = signToken(ctx.state.authUser._id);
+	ctx.status = 200;
+	ctx.body = ctx.state;
 	await next();
 };
