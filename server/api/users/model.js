@@ -3,6 +3,7 @@
 // libraries
 const mongoose = require('mongoose');
 const pluralize = require('pluralize');
+const bcrypt = require('bcrypt');
 
 // utilities
 const routePath = pluralize.singular(/[^/]*$/.exec(__dirname)[0]);
@@ -21,16 +22,18 @@ const routeSchema = new Schema({
 }, { strict: 'throw' });
 
 // validation
+/* eslint-disable arrow-body-style */
 routeSchema.path('email').validate((email) => {
-	return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/.test(email);
+	return /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/.test(email);
 }, 'A valid email address is required.');
 
 routeSchema.path('password').validate((password) => {
 	return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.* ).{8,}$/.test(password);
 }, 'Password must be greater than 7 characters, upper and lower case with digits and special characters.');
+/* eslint-enable arrow-body-style */
 
 // pre-save
-routeSchema.pre('save', function(next) {
+routeSchema.pre('save', function preSave(next) {
 	if (!this.isModified('password')) {
 		return next();
 	}
@@ -50,6 +53,6 @@ routeSchema.methods = {
 	authenticate(password) {
 		return bcrypt.compare(password, this.password);
 	},
-}
+};
 
 module.exports = mongoose.model(routePath, routeSchema);

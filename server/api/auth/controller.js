@@ -38,7 +38,7 @@ exports.getUser = async function getUser(ctx, next) {
 		ctx.throw(401, 'Authentication Failed.');
 	}
 
-	authUser = await User.findOne({email: ctx.request.body.email});
+	const authUser = await User.findOne({ email: ctx.request.body.email });
 	if (!authUser) {
 		ctx.status = 401;
 		ctx.throw(401, 'Authentication Failed.');

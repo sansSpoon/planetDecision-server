@@ -24,6 +24,6 @@ const router = new Router({
 // CRUD configuration
 router
 	.post('/signup', koaBody(), controller.newUser)
-	.post('/signin', koaBody(), constroller.getUser);
+	.post('/signin', koaBody(), controller.getUser);
 
 module.exports = router;

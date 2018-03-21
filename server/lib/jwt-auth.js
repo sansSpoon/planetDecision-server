@@ -14,8 +14,8 @@ exports.signToken = function signToken(id) {
 		config.secrets.jwt,
 		{ expiresIn: config.jwtExpire },
 	);
-}
+};
 
 exports.decodeToken = function decodeToken() {
-	return koaJwt({secret: config.secrets.jwt, key: 'token'});
-}
+	return koaJwt({ secret: config.secrets.jwt, key: 'token' });
+};

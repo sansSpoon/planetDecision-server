@@ -62,7 +62,7 @@ exports.init = function apiInit(app, root) {
 			logger.error('API missing users route.');
 			configs += 1;
 		}
-		
+
 		if (apiRoutes.findIndex((route) => /[^/]*$/.exec(route)[0] === 'auth') === -1) {
 			logger.error('API missing auth route.');
 			configs += 1;
