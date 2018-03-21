@@ -1,28 +1,8 @@
 'use strict';
 
-// libraries
-const jwt = require('jsonwebtoken');
-const koaJwt = require('koa-jwt');
-
 // loaders
-const User = require('../api/users/model');
-const config = require('../config/env');
-
-// utilities
-function signToken(id) {
-	return jwt.sign(
-		{ _id: id },
-		config.secrets.jwt,
-		{ expiresIn: config.jwtExpire },
-	);
-}
-
-function decodeToken() {
-	return koaJwt({secret: config.secrets.jwt, key: 'token'});
-}
-
-exports.signToken = signToken;
-exports.decodeToken = decodeToken;
+const User = require('../users/model');
+const { signToken } = require('../../lib/jwt-auth');
 
 
 // ! Create User
