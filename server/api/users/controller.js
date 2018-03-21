@@ -24,7 +24,7 @@ const routePath = pluralize.singular(/[^/]*$/.exec(__dirname)[0]);
 //
 exports.params = async function getParams(id, ctx, next) {
 
-	ctx[routePath] = await Model.findById(id);
+	ctx[routePath] = await Model.findById(id).select('-password');
 	if (!ctx[routePath]) {
 
 		return (ctx.status = 404);
@@ -73,7 +73,7 @@ exports.readOne = async function readOne(ctx, next) {
 //
 exports.readAll = async function readAll(ctx, next) {
 
-	ctx.body = await Model.find();
+	ctx.body = await Model.find().select('-password');
 	await next();
 };
 

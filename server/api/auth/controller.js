@@ -15,8 +15,9 @@ const { signToken } = require('../../lib/jwt-auth');
 //
 exports.newUser = async function newUser(ctx, next) {
 
-	ctx.state.newUser = await User.create(ctx.request.body);
-	ctx.state.token = signToken(ctx.state.newUser._id);
+	const createUser = await User.create(ctx.request.body);
+	ctx.state.authUser = createUser._id;
+	ctx.state.token = signToken(ctx.state.authUser);
 	ctx.status = 201;
 	ctx.body = ctx.state;
 	await next();
@@ -49,7 +50,7 @@ exports.getUser = async function getUser(ctx, next) {
 		ctx.throw(401, 'Authentication Failed.');
 	}
 
-	ctx.state.authUser = authUser;
+	ctx.state.authUser = authUser._id;
 	ctx.state.token = signToken(ctx.state.authUser._id);
 	ctx.status = 200;
 	ctx.body = ctx.state;

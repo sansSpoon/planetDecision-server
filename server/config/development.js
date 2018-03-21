@@ -10,7 +10,7 @@ module.exports = {
 		pass:	'',
 	},
 	logging: true,
-	jwtExpire: '1m',
+	jwtExpire: '5m',
 	secrets: {
 		jwt: process.env.JWT || 'shhhh', // remove default secret before commiting or in production
 	},
