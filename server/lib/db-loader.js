@@ -13,21 +13,21 @@ const logger = require('./console-wrapper.js');
 ** Notifies the App once a successful connection is established.
 **
 ** @param app - the Koa application
-** @param uri - the configuration object use to modify the default connection
+** @param env - the configuration object used to modify the default connection
 ** @return {mongoose.connection}
 */
 //
-exports.init = async function dbInit(app, uri) {
+exports.init = async function dbInit(app, env) {
 
-	// Set the default url, modify the connection string in "server/config/env"
+	// Set the default url, modify the connection string in ".env"
 	const dbURL = new URL('mongodb://127.0.0.1/koacola');
 
 	dbURL.protocol = 'mongodb://';
-	dbURL.hostname = uri.host;
-	dbURL.port = uri.port;
-	dbURL.pathname = uri.data;
-	dbURL.username = uri.user;
-	dbURL.password = uri.pass;
+	dbURL.hostname = env.DB_HOST;
+	dbURL.port = env.DB_PORT;
+	dbURL.pathname = env.DB_DATA;
+	dbURL.username = env.DB_USER;
+	dbURL.password = env.DB_PASS;
 
 	mongoose.connection.on('connected', () => {
 		logger.info('Connected to DB!');

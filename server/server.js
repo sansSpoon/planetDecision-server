@@ -13,7 +13,7 @@ const requestLogger = require('koa-logger');
 const cors = require('@koa/cors');
 
 // loaders
-const env = require('./config/env');
+const env = require('./lib/config');
 const logger = require('./lib/console-wrapper.js');
 const api = require('./lib/api-loader');
 const db = require('./lib/db-loader');
@@ -42,13 +42,13 @@ app.on('ready', () => {
 	logger.info('Loading API routes...');
 	api.init(app, resolve(__dirname, 'api'));
 
-	app.listen(env.port, () => {
+	app.listen(env.PORT, () => {
 
-		logger.info(`Server running on port ${env.port} (${process.env.NODE_ENV})`);
+		logger.info(`Server running on port ${env.PORT} (${process.env.NODE_ENV})`);
 	});
 });
 
-db.init(app, env.db);
+db.init(app, env);
 
 // export the app
 module.exports = app;
