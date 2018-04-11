@@ -17,17 +17,17 @@ const logger = require('./console-wrapper.js');
 ** @return {mongoose.connection}
 */
 //
-exports.init = async function dbInit(app, env) {
+exports.init = async function dbInit(app) {
 
 	// Set the default url, modify the connection string in ".env"
 	const dbURL = new URL('mongodb://127.0.0.1/koacola');
 
 	dbURL.protocol = 'mongodb://';
-	dbURL.hostname = env.DB_HOST;
-	dbURL.port = env.DB_PORT;
-	dbURL.pathname = env.DB_DATA;
-	dbURL.username = env.DB_USER;
-	dbURL.password = env.DB_PASS;
+	dbURL.hostname = process.env.DB_HOST;
+	dbURL.port = process.env.DB_PORT;
+	dbURL.pathname = process.env.DB_DATA;
+	dbURL.username = process.env.DB_USER;
+	dbURL.password = process.env.DB_PASS;
 
 	mongoose.connection.on('connected', () => {
 		logger.info('Connected to DB!');
