@@ -18,6 +18,10 @@ const routePath = pluralize.singular(/[^/]*$/.exec(__dirname)[0]);
 // schema
 const Schema = mongoose.Schema; // eslint-disable-line
 const hierarchySchema = new Schema({
+	name: {
+		type: String,
+		required: true,
+	},
 	star: {
 		type: Schema.Types.ObjectId,
 		ref: 'star',
