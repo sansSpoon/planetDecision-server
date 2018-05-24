@@ -36,18 +36,18 @@ exports.getUser = async function getUser(ctx, next) {
 
 	if (!ctx.request.body.email || !ctx.request.body.password) {
 		ctx.status = 401;
-		ctx.throw(401, 'Authentication Failed.');
+		ctx.throw(401, 'Authentication Failed. Invalid Request.');
 	}
 
 	const authUser = await User.findOne({ email: ctx.request.body.email });
 	if (!authUser) {
 		ctx.status = 401;
-		ctx.throw(401, 'Authentication Failed.');
+		ctx.throw(401, 'Authentication Failed. Unknown User.');
 	}
 
 	if (!await authUser.authenticate(ctx.request.body.password)) {
 		ctx.status = 401;
-		ctx.throw(401, 'Authentication Failed.');
+		ctx.throw(401, 'Authentication Failed. Incorrect Password.');
 	}
 
 	ctx.state.authUser = authUser._id;
