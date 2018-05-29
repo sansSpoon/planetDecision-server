@@ -1,0 +1,75 @@
+{
+	"planets": [
+		{
+			"name": "Mercury",
+			"radiusKM": "2439.7",
+			"rotationVelocityKMH": "10.892",
+			"aphelionAU": "0.466697",
+			"perihelionAU": "0.307499",
+			"orbitVelocityKMS": "47.362"
+		},
+		{
+			"name": "Venus",
+			"radiusKM": "6051.8",
+			"rotationVelocityKMH": "6.52",
+			"aphelionAU": "0.728213",
+			"perihelionAU": "0.718440",
+			"orbitVelocityKMS": "35.02"
+		},
+		{
+			"name": "Earth",
+			"radiusKM": "6371.0",
+			"rotationVelocityKMH": "1674.4",
+			"aphelionAU": "1.017",
+			"perihelionAU": "0.98327",
+			"orbitVelocityKMS": "29.78"
+		},
+		{
+			"name": "Mars",
+			"radiusKM": "3389.5",
+			"rotationVelocityKMH": "868.22",
+			"aphelionAU": "1.666",
+			"perihelionAU": "1.382",
+			"orbitVelocityKMS": "24.007"
+		},
+		{
+			"name": "Jupiter",
+			"radiusKM": "69911",
+			"rotationVelocityKMH": "45000",
+			"aphelionAU": "5.4588",
+			"perihelionAU": "4.9501",
+			"orbitVelocityKMS": "13.07"
+		},
+		{
+			"name": "Saturn",
+			"radiusKM": "58232",
+			"rotationVelocityKMH": "35500",
+			"aphelionAU": "10.1238",
+			"perihelionAU": "9.0412",
+			"orbitVelocityKMS": "9.68"
+		},
+		{
+			"name": "Uranus",
+			"radiusKM": "25362",
+			"rotationVelocityKMH": "9320",
+			"aphelionAU": "20.11",
+			"perihelionAU": "18.33",
+			"orbitVelocityKMS": "6.80"
+		},
+		{
+			"name": "Neptune",
+			"radiusKM": "24622",
+			"rotationVelocityKMH": "9650",
+			"aphelionAU": "30.33",
+			"perihelionAU": "29.81",
+			"orbitVelocityKMS": "5.43"
+		}
+	],
+	"stars": [
+		{
+			"name": "The Sun",
+			"radiusKM": "695700",
+			"rotationVelocityKMH": "7.189×103"
+		}
+	]
+}
