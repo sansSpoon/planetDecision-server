@@ -56,31 +56,32 @@ async function dbInit() {
 	}
 }
 
-function seed(response) {
-	
-	const createDoc = function(model, doc) {
-		return new model(doc).save()
-			//.then((response) => response);
-	}
-	
-	const uploadStars = function() {
-		const stars = data.stars.map((star) => createDoc(Star, star));
-		return Promise.all(stars)
-		//	.then((response) => console.log(response));
-	}
-	
-	const uploadPlanets = function() {
-		const planets = data.planets.map((planet) => createDoc(Planet, planet));
-		return Promise.all(planets)
-		//	.then((response) => console.log(response));
-	}
-	uploadStars().then(console.log.bind(console))
-	uploadPlanets().then((response) => console.log(response));
-	//return;
+
+// Returns a promise	
+const createDoc = function(model, doc) {
+	return new model(doc).save()
+}
+
+// Creates an array of Promises
+const uploadStars = function() {
+	const stars = data.stars.map((star) => createDoc(Star, star));
+	return stars;
+}
+
+// Creates an array of Promises
+const uploadPlanets = function() {
+	const planets = data.planets.map((planet) => createDoc(Planet, planet));
+	return planets;
+}
+
+// Concat the two arrays
+function seed() {
+	const system = [].concat(uploadStars(),uploadPlanets());
+	return Promise.all(system);
 }
 
 dbInit()
 	.then(seed)
-//	.then(() => process.exit())
-
-
+	.then(console.log.bind(console))
+	.then(() => process.exit())
+	.catch(console.log.bind(console));
