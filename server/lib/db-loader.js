@@ -30,6 +30,11 @@ exports.init = async function dbInit(app) {
 	dbURL.password = process.env.DB_PASS;
 
 	mongoose.connection.on('connected', () => {
+		
+		if(process.env.NODE_ENV = 'development') {
+			mongoose.set('debug', true);
+		}
+		
 		logger.info('Connected to DB!');
 		app.emit('ready');
 	});
