@@ -27,8 +27,8 @@ const router = new Router({
 // CRUD configuration
 router
 	.param('id', controller.params)
-	.get('/', decodeToken(), controller.readAll)
-	.get('/:id', decodeToken(), controller.readOne)
+	.get('/', controller.readAll)
+	.get('/:id', controller.readOne)
 	.post('/', decodeToken(), koaBody(), controller.createOne)
 	.put('/:id', decodeToken(), koaBody(), controller.updateOne)
 	.delete('/:id', decodeToken(), controller.deleteOne);
