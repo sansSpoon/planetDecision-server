@@ -62,6 +62,14 @@ const routeSchema = new Schema({
 		type: Number,
 		required: true,
 	},
+	answer: {
+		type: String,
+		required: true,
+	},
+	colour: {
+		type: String,
+		required: true,
+	},
 	satellites: [satelliteSchema],
 }, { strict: 'throw' });
 
