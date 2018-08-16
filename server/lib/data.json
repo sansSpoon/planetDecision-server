@@ -6,7 +6,9 @@
 			"rotationVelocityKMH": "10.892",
 			"aphelionAU": "0.466697",
 			"perihelionAU": "0.307499",
-			"orbitVelocityKMS": "47.362"
+			"orbitVelocityKMS": "47.362",
+			"answer": "Too hot.",
+			"colour":"133,133,133"
 		},
 		{
 			"name": "Venus",
@@ -14,7 +16,9 @@
 			"rotationVelocityKMH": "6.52",
 			"aphelionAU": "0.728213",
 			"perihelionAU": "0.718440",
-			"orbitVelocityKMS": "35.02"
+			"orbitVelocityKMS": "35.02",
+			"answer": "It's toxic.",
+			"colour":"228,233,237"
 		},
 		{
 			"name": "Earth",
@@ -22,7 +26,9 @@
 			"rotationVelocityKMH": "1674.4",
 			"aphelionAU": "1.017",
 			"perihelionAU": "0.98327",
-			"orbitVelocityKMS": "29.78"
+			"orbitVelocityKMS": "29.78",
+			"answer": "Just right.",
+			"colour":"3,41,77"
 		},
 		{
 			"name": "Mars",
@@ -30,7 +36,9 @@
 			"rotationVelocityKMH": "868.22",
 			"aphelionAU": "1.666",
 			"perihelionAU": "1.382",
-			"orbitVelocityKMS": "24.007"
+			"orbitVelocityKMS": "24.007",
+			"answer": "It has potential.",
+			"colour":"105,89,66"
 		},
 		{
 			"name": "Jupiter",
@@ -38,7 +46,9 @@
 			"rotationVelocityKMH": "45000",
 			"aphelionAU": "5.4588",
 			"perihelionAU": "4.9501",
-			"orbitVelocityKMS": "13.07"
+			"orbitVelocityKMS": "13.07",
+			"answer": "Go Big!",
+			"colour":"172,136,100"
 		},
 		{
 			"name": "Saturn",
@@ -46,7 +56,9 @@
 			"rotationVelocityKMH": "35500",
 			"aphelionAU": "10.1238",
 			"perihelionAU": "9.0412",
-			"orbitVelocityKMS": "9.68"
+			"orbitVelocityKMS": "9.68",
+			"answer": "It will be turbulent.",
+			"colour":"223,199,155"
 		},
 		{
 			"name": "Uranus",
@@ -54,7 +66,9 @@
 			"rotationVelocityKMH": "9320",
 			"aphelionAU": "20.11",
 			"perihelionAU": "18.33",
-			"orbitVelocityKMS": "6.80"
+			"orbitVelocityKMS": "6.80",
+			"answer": "Mostly air.",
+			"colour":"172,192,201"
 		},
 		{
 			"name": "Neptune",
@@ -62,7 +76,9 @@
 			"rotationVelocityKMH": "9650",
 			"aphelionAU": "30.33",
 			"perihelionAU": "29.81",
-			"orbitVelocityKMS": "5.43"
+			"orbitVelocityKMS": "5.43",
+			"answer": "Too cold.",
+			"colour":"141,166,196"
 		}
 	],
 	"stars": [
